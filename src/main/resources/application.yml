@@ -1,0 +1,90 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: Order
+          uri: http://localhost:8081
+          predicates:
+            - Path=/orders/** 
+        - id: Delivery
+          uri: http://localhost:8082
+          predicates:
+            - Path=/deliveries/**, /cancellations/**
+        - id: Product
+          uri: http://localhost:8083
+          predicates:
+            - Path=/products/**, /cancellations2/**
+        - id: Purchase
+          uri: http://localhost:8084
+          predicates:
+            - Path=/purchases/** 
+        - id: MyPage
+          uri: http://localhost:8085
+          predicates:
+            - Path= /onePlusViews/**, /orderViews/**, /salesViews/**
+        - id: OnePlusOne
+          uri: http://localhost:8086
+          predicates:
+            - Path=/onePlusOnes/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: Order
+          uri: http://order:8080
+          predicates:
+            - Path=/orders/** 
+        - id: Delivery
+          uri: http://delivery:8080
+          predicates:
+            - Path=/deliveries/**, /cancellations/**
+        - id: Product
+          uri: http://product:8080
+          predicates:
+            - Path=/products/** , /cancellations2/**
+        - id: Purchase
+          uri: http://purchase:8080
+          predicates:
+            - Path=/purchases/** 
+        - id: MyPage
+          uri: http://mypage:8080
+          predicates:
+            - Path= /onePlusViews/**, /orderViews/**, /salesViews/**
+        - id: OnePlusOne
+          uri: http://onePlusOne:8080
+          predicates:
+            - Path=/onePlusOne/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
