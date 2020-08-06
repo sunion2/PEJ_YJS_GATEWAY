@@ -72,9 +72,9 @@ spring:
           predicates:
             - Path= /onePlusViews/**, /orderViews/**, /salesViews/**
         - id: OnePlusOne
-          uri: http://onePlusOne:8080
+          uri: http://onePlusOnes:8080
           predicates:
-            - Path=/onePlusOne/**
+            - Path=/onePlusOnes/**
       globalcors:
         corsConfigurations:
           '[/**]':
